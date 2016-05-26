@@ -1,0 +1,27 @@
+<%
+  my ($types, $colors, $defaults) = @_;
+  my %hex;
+
+  foreach my $type (@$types) {
+    my $flag = 0;
+
+    foreach my $color (@$colors) {
+      my $value = $Request->Form("$type$color");
+      $flag++ unless ($value =~ /^\d+$/ and $value >= 0 and $value < 256);
+    }
+
+    if ($flag) {
+      # user supplied an unacceptable value
+      $hex{$type} = $defaults->{$type};
+    }
+    else {
+      my @rgb;
+      foreach my $color (@$colors) {
+        push (@rgb, $Request->Form("$type$color"));
+      }
+      $hex{$type} = sprintf("%02X%02X%02X", @rgb);
+    }
+  }
+
+  $Response->Include('form.html', $types, $colors, \%hex);
+%>

@@ -1,0 +1,62 @@
+PerlWarn On
+
+LogLevel debug
+
+AddDefaultCharset On
+
+PerlModule Apache::Filter
+
+Alias /level @DocumentRoot@
+<Location /level>
+  SetHandler perl-script
+  PerlHandler Apache::Clean
+
+  PerlSetVar CleanLevel 2
+</Location>
+
+Alias /option @DocumentRoot@
+<Location /option>
+  SetHandler perl-script
+  PerlHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption entities
+  PerlAddVar CleanOption whitespace
+</Location>
+
+Alias /perl-bin @ServerRoot@/perl-bin
+<Location /perl-bin>
+  SetHandler perl-script
+  PerlHandler Apache::RegistryFilter Apache::SSI Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+  PerlSetVar Filter On
+
+  Options +ExecCGI
+</Location>
+
+<Location /plain-dynamic>
+  SetHandler perl-script
+  PerlHandler My::PlainHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>
+
+<Location /html-dynamic>
+  SetHandler perl-script
+  PerlHandler My::DynamicHTML Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>
+
+<Location /decline>
+  SetHandler perl-script
+  PerlHandler My::PlainHandler Apache::Clean My::Uppercase
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>
+

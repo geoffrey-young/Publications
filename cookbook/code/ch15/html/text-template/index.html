@@ -1,0 +1,14 @@
+<html>
+  <head><title>Using Text::Template</title></head>
+  <body>
+
+    <h3>Environment variables for [-- $user --]</h3>
+
+    [-- 
+      foreach my $key (sort keys %ENV) {
+        $OUT .= "$key => $ENV{$key} <br />\n";
+      }
+    --]
+
+  </body>
+</html>

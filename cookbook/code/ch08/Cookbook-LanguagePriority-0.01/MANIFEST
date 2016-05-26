@@ -1,0 +1,6 @@
+Makefile.PL
+MANIFEST
+LanguagePriority.pm
+LanguagePriority.xs
+typemap
+eg/TestLanguagePriority.pm

@@ -1,0 +1,32 @@
+INSTALLATION:
+
+this module follows the standard 
+
+  $ perl Makefile.PL
+  $ make
+  $ su
+  # make install
+
+routine.
+
+if you want to run the tests, you'll need to do
+something similar to the following
+
+  $ export APACHE=/usr/local/apache/bin/httpd
+  $ make test
+
+whether you choose to specify httpd or apxs depends on
+whether or not your installation is has mod_so, so you may need
+one or the other or both.
+
+you can also configure the test suite when building the Makefile
+
+  $ perl Makefile.PL -httpd /usr/local/apache/bin/httpd
+
+run 
+
+  $ t/TEST -help 
+
+or see the README in the Apache::Test distribtion for more options
+
+have fun.

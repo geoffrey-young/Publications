@@ -1,0 +1,20 @@
+<Location /hooks>
+  SetHandler perl-script
+  PerlHandler 'sub { use mod_perl qw(PerlStackedHandlers PerlFileApi); \
+                     shift->send_http_header();                           \
+                     return Apache::Constants::OK;                        \
+               }'
+</Location>
+
+Alias /handler @DocumentRoot@
+<Location /handler>
+  SetHandler perl-script
+  PerlHandler Cookbook::TestMe
+</Location>
+
+Alias /filter @DocumentRoot@
+<Location /filter>
+  SetHandler perl-script
+  PerlHandler Cookbook::TestMe Cookbook::TestMe
+  PerlSetVar Filter On
+</Location>

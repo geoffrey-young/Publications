@@ -1,0 +1,54 @@
+#!perl -w
+
+use strict;
+
+my $so = 'mod_perl.so';   # name of the mod_perl dll
+
+# Get the name of the directory to install $so.
+my $base = 
+  GetString ("\nWhere should mod_perl.so be placed in?\n  (q to quit)", 
+	     'C:/Apache/modules') ;
+if ($base eq 'q') {
+  suggest_manual("Aborting installation ...");
+}
+$base =~ s/mod_perl.so$//i;
+$base =~ s!\\!/!g;
+$base =~ s!/$!!;
+
+# If the directory doesn't exist, offer to create it.
+if (! -d $base) {
+  my $ans = GetString("$base does not exist. Create it?", 'no');
+  if ($ans =~ /^y/i) {
+    mkdir $base;
+    suggest_manual("Could not create $base: $!") if (! -d $base);
+  }
+  else {
+    suggest_manual("Will not create $base.");
+  }
+}
+
+# Copy $so to the indicated directory.
+use File::Copy;
+move($so, "$base/$so");
+suggest_manual("Moving $so to $base failed: $!") if (! -f "$base/$so");
+print "$so has been successfully installed \n\t to $base/$so\n";
+sleep(5);   # give the user time to read, before the window closes
+
+# routine to suggest manual installation if user declines
+sub suggest_manual {
+  my $msg = shift;
+  print $msg, "\n";
+  print "Please install $so manually\n";
+  sleep(5);
+  exit(0);
+}
+
+# routine to get a string from a prompt, offering a default
+sub GetString {
+  my ($prompt, $default) = @_;
+  printf ("%s [%s] ", $prompt, $default);
+  chomp ($_ = <STDIN>);
+  /\S/ and return $_;
+  /^$/ and return $default;
+  return;
+}

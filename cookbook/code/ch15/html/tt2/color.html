@@ -1,0 +1,26 @@
+[% INSERT header.html %]
+
+[% PERL %]
+  my @colors = qw(Red Green Blue);
+  my %defaults = ( BGCOLOR => 'FFFFFF',
+                   TEXT    => '000000',
+                   LINK    => '0000FF',
+                   ALINK   => 'FF0000',
+                   VLINK   => 'AA0000',
+                 );
+
+  my @types = keys %defaults;
+
+  $stash->set(types => \@types);
+  $stash->set(colors => \@colors);
+  $stash->set(defaults => \%defaults);
+[% END %]
+
+[% IF params.submit %]
+  [% INCLUDE rgb2hex.html %]
+[% ELSE %]
+  [% INCLUDE form.html %]
+[% END %]
+
+[% INCLUDE footer.html %]
+

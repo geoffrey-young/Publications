@@ -1,0 +1,47 @@
+[-
+  ($types, $colors, $hex) = @param;
+  @headings = ('Attribute', @$colors, 'Hex');
+
+  foreach my $type (@$types) {
+    # Set up the body attributes.
+    push @hex, $hex->{$type};
+    $attributes .= qq!$type=\\"#$hex->{$type}\\"!;
+
+    foreach $color (@$colors) {
+      # Create the RGB chooser table elements.
+      next if $fdat{$type . $color};
+
+      @rgb = map{hex} unpack "a2a2a2", $hex->{$type};
+
+      foreach my $index (0 .. 2) {
+        $fdat{$type . $colors->[$index]} = $rgb[$index];
+      }
+    }
+  }
+-]
+
+<body [+ $attributes +]>
+
+  <h3>Color chooser</h3>
+  Enter an RGB value (each between 0 and 255) for the attributes
+  below, and press &quot;<I>Try it!</I>&quot; to see the results.
+
+  <form action="color.html" method="POST">
+    <table width="30%">
+      <tr>
+        <th align="left">[+ $headings[$col] +]</th>
+      </tr>
+      <tr> 
+        <td align="left">[+ $types->[$row] +]</td>
+[$foreach $color (@$colors) $]
+        <td align="left">
+          <input type="text" name="[+ $types->[$row] . $color +]" size="8">
+        </td>
+[$endforeach $]
+        <td align="left">[+ $hex[$row] +]</TD>
+      </tr>
+    </table>
+    <input type="submit" name="submit" value="Try it!">
+    <input type="reset" value="Clear">
+  </form>
+  <a href="http://localhost/">Here is a link</a>

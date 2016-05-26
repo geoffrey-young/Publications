@@ -1,0 +1,4 @@
+Makefile.PL
+MANIFEST
+QueryServer.pm
+eg/querysoap.pl

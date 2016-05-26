@@ -1,0 +1,88 @@
+PerlSwitches -w
+
+LogLevel debug
+
+AddDefaultCharset On
+
+Alias /level @DocumentRoot@
+<Location /level>
+  PerlOutputFilterHandler Apache::Clean
+  PerlSetVar CleanLevel 2
+</Location>
+
+Alias /option @DocumentRoot@
+<Location /option>
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption entities
+  PerlAddVar CleanOption whitespace
+</Location>
+
+Alias /perl-bin @ServerRoot@/perl-bin
+<Location /perl-bin>
+  SetHandler perl-script
+  PerlResponseHandler ModPerl::Registry
+
+  SetOutputFilter INCLUDES
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+  Options +ExecCGI +Includes
+</Location>
+
+Alias /cgi-bin @ServerRoot@/cgi-bin
+<Location /cgi-bin>
+  SetHandler cgi-script
+
+  SetOutputFilter INCLUDES
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+  Options +ExecCGI +Includes
+</Location>
+
+<Location /plain-dynamic>
+  SetHandler modperl
+  PerlResponseHandler My::PlainHandler
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>
+
+<Location /html-dynamic>
+  SetHandler modperl
+  PerlResponseHandler My::DynamicHTML
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>
+
+<Location /long>
+  SetHandler modperl
+  PerlResponseHandler My::Long
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+</Location>
+
+<Location /extra>
+  SetHandler modperl
+  PerlResponseHandler My::Extra
+  PerlOutputFilterHandler Apache::Clean
+
+  PerlSetVar CleanOption shortertags
+</Location>
+
+<Location /decline>
+  SetHandler modperl
+  PerlResponseHandler My::PlainHandler
+  PerlOutputFilterHandler Apache::Clean My::Uppercase
+
+  PerlSetVar CleanOption shortertags
+  PerlAddVar CleanOption whitespace
+</Location>

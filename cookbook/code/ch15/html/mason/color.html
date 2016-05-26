@@ -1,0 +1,22 @@
+<%perl>
+  my @colors = qw(Red Green Blue);
+  my %defaults = ( BGCOLOR => 'FFFFFF',
+                   TEXT    => '000000',
+                   LINK    => '0000FF',
+                   ALINK   => 'FF0000',
+                   VLINK   => 'AA0000',
+                 );
+
+  my @types = keys %defaults;
+</%perl>
+
+% if ( my %args = $r->content()) {
+    <& rgb2hex, types => \@types, 
+                colors => \@colors, 
+                hex => \%defaults, 
+                args => \%args &>
+% } else { 
+    <& form, types => \@types, 
+             colors => \@colors, 
+             hex => \%defaults &>
+% }

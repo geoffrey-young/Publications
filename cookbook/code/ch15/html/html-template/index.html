@@ -1,0 +1,17 @@
+<html>
+  <head><title>Using HTML::Template</title></head>
+  <body>
+
+    <h3>Environment variables for <TMPL_VAR name="user"></h3>
+
+    <TMPL_INCLUDE name="header.html">
+
+    <TMPL_LOOP name="env_vals">
+      <TMPL_VAR name=key> => <TMPL_VAR name=val><br/>
+    </TMPL_LOOP>
+
+    <TMPL_INCLUDE name="footer.html">
+
+  </body>
+</html>
+

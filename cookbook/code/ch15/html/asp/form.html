@@ -1,0 +1,61 @@
+<%
+  my ($types, $colors, $hex) = @_;
+  my @headings = ('Attribute', @$colors, 'Hex');
+
+  my ($attributes, %values);
+
+  foreach my $type (@$types) {
+    # Set up the body attributes.
+    $attributes .= qq!$type="#$hex->{$type}" !;
+
+    # Create the RGB chooser table elements.
+    my @rgb = map{hex} unpack "a2a2a2", $hex->{$type};
+
+    foreach my $index (0 .. 2) {
+      $values{$type . $colors->[$index]} = $rgb[$index];
+    }
+  }
+%>
+
+<body <% =$attributes %>>
+
+  <h3>Color Chooser</h3>
+  Enter an RGB value (each between 0 and 255) for the attributes
+  below, and press &quot;<i>Try it!</i>&quot; to see the results.
+
+  <form method="POST" action="color.html">
+    <table width="30%">
+      <tr>
+<% 
+      foreach my $heading (@headings) { 
+%>
+        <th align="left"><% =$heading %></th>
+<%
+      }
+%>
+      </tr>
+<% 
+      foreach my $type (@$types) { 
+%>
+      <tr> 
+        <td align="left"><% =$type %></td>
+<%
+        foreach my $color (@$colors) { 
+%>
+          <td align="left">
+            <input type="text" name="<% =$type . $color %>" 
+             value="<% =$values{$type . $color} %>" size="8">
+          </td>
+<%
+        }
+%>
+        <td align="left"><%=$hex->{$type} %></td>
+      </tr>
+<%
+      }
+%>
+    </table>
+    <input type="submit" name="submit" value="Try it!">
+    <input type="reset" value="Clear">
+  </form>
+  <a href="http://localhost/">Here is a link.</a>

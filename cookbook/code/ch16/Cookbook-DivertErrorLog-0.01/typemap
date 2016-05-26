@@ -1,0 +1,2 @@
+TYPEMAP
+Apache::Server          T_PTROBJ

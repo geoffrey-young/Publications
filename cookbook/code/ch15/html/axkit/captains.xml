@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?>
+<?xml-stylesheet href="/axkit/captains.xsl" type="text/xsl"?>
+<shipdata>
+  <captainlist>
+    <captain>Ahab</captain>
+    <captain>Kirk</captain>
+    <captain>Columbus</captain>
+  </captainlist>
+  <shiplist>
+    <ship type="riverboat">
+      <name>Belle of the South</name>
+      <registry>USA</registry>
+    </ship>
+    <ship type="oil_tanker">
+      <name>Valdez</name>
+      <registry>Liberia</registry>
+    </ship>
+  </shiplist>
+</shipdata>
+

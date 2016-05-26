@@ -1,0 +1,27 @@
+[-
+  ($types, $colors, $defaults) = @param;
+
+  foreach $type (@$types) {
+    $flag = 0;
+  
+    foreach $color (@$colors) {
+      $value = $fdat{$type . $color};
+      $flag++ unless ($value =~ /^\d+$/ and $value >= 0 and $value < 256);
+    }
+  
+    if ($flag) {
+      # The user supplied an unacceptable value,
+      # so use the default.
+      delete $fdat{$type . $_} for (@$colors); 
+      $hex{$type} = $defaults->{$type}
+    }
+    else {
+      # User values were ok.
+      $hex{$type} = 
+        sprintf("%02X%02X%02X", map {$fdat{$type . $_}} @$colors);
+    }
+  }
+
+  Execute({inputfile => "form.html", 
+           param => [$types, $colors, \%hex]});
+-]

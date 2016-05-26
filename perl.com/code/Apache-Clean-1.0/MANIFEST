@@ -1,0 +1,21 @@
+Clean.pm
+INSTALL
+Makefile.PL
+MANIFEST			This list of files
+README
+t/01level.t
+t/02option.t
+t/04plain.t
+t/05dynamic.t
+t/07registry.t
+t/08notfound.t
+t/11decline.t
+t/99pod.t
+t/conf/extra.conf.in
+t/htdocs/index.html
+t/htdocs/index.txt
+t/My/DynamicHTML.pm
+t/My/PlainHandler.pm
+t/My/Uppercase.pm
+t/perl-bin/include.pl
+t/perl-bin/plain.pl

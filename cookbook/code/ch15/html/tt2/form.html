@@ -1,0 +1,63 @@
+[% PERL %]
+  # Get the incoming values.
+  my @types = @{$stash->get('types')};
+  my @colors = @{$stash->get('colors')};
+  my %hex = %{$stash->get('defaults')};
+
+  # Overlay the default values with the rgb2hex data, if available.
+  %hex = %{$stash->get('hex')} if $stash->get('hex');
+
+  my @headings = ('Attribute', @colors, "Hex");
+
+  my ($attributes, %values);
+
+  # Set up the body attributes.
+  foreach my $type (@types) {
+    $attributes .= qq!$type="#$hex{$type}"!;
+
+    # Create the RGB chooser table elements
+    my @rgb = map{hex} unpack "a2a2a2", $hex{$type};
+    foreach my $index (0 .. 2) {
+      $values{$type . $colors[$index]} = $rgb[$index];
+    }
+  }
+
+  # Make the variables available to the other template tags
+  $stash->set(attributes => $attributes);
+  $stash->set(values => \%values);
+  $stash->set(headings => \@headings);
+[% END %]
+
+<body [% attributes %]>
+
+  <h3>Color Chooser</h3>
+  Enter an RGB value (each between 0 and 255) for the attributes
+  below, and press "<i>Try it!</i>" to see the results.
+
+  <form method="POST" action="color.html">
+    <table width="30%">
+      <tr>
+
+[% FOREACH heading = headings %]
+        <th align="left">[% heading %]</th>
+[% END %]
+      </tr>
+
+[% FOREACH type = types %]
+      <tr>
+        <td align="left">[% type %]</td>
+  [% FOREACH color = colors %]
+            <td align="left">
+    [% key = "$type$color" %]
+              <input type="text" name="[% key %]"
+              value="[% values.$key %]" size="8">
+            </td>
+  [% END %]
+      <td align="left">[% hex.$type %]</td>
+      </tr>
+[% END %]
+    </table>
+    <input type="submit" name="submit" value="Try it!">
+    <input type="reset" value="Clear">
+  </form>
+  <a href="http://localhost/">Here is a link</a>

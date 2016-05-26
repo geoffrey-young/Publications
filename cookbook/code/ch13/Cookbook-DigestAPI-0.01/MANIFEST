@@ -1,0 +1,5 @@
+Makefile.PL
+MANIFEST
+DigestAPI.pm
+DigestAPI.xs
+typemap

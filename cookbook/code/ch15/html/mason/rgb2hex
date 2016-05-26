@@ -1,0 +1,32 @@
+<%perl>
+  my %values;
+
+  foreach my $type (@$types) {
+    my $flag = 0;
+
+    foreach my $color (@$colors) {
+      my $value = $args->{$type . $color};
+      $flag++ unless ($value =~ /^\d+$/ and $value >= 0 and $value < 256);
+    }
+
+    if ($flag) {
+      # The user supplied an unacceptable value,
+      # so use the default.
+      $values{$type} = $hex->{$type};
+    }
+    else {
+      # User values were ok.
+      $values{$type} = 
+        sprintf("%02X%02X%02X", map {$args->{$type . $_}} @$colors);
+    }
+  }
+</%perl>
+
+<& form, types => $types, colors => $colors, hex => \%values &>
+
+<%args>
+  $types
+  $colors
+  $hex
+  $args
+</%args>

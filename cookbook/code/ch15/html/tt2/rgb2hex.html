@@ -1,0 +1,40 @@
+[% PERL %]
+  # Get the incoming values
+  my @types = @{$stash->get('types')};
+  my @colors = @{$stash->get('colors')};
+  my %defaults = %{$stash->get('defaults')};
+
+  # Get the form input provided by the TT2Params directive
+  my %params = %{$stash->get('params')};
+
+  my %hex;
+
+  foreach my $type (@types) {
+
+    my $flag = 0;
+
+    foreach my $color (@colors) {
+      my $value = $params{$type . $color};
+      $flag++ unless ($value =~ /^\d+$/ and $value >= 0 and $value < 256);
+    }
+
+    if ($flag) {
+      # The user supplied an unacceptable value,
+      # so use the default.
+      $hex{$type} = $defaults{$type};
+    }
+    else {
+      # User values were ok.
+      my @rgb;
+      foreach my $color (@colors) {
+        push @rgb, $params{$type . $color};
+      }
+      $hex{$type} = sprintf("%02X%02X%02X", @rgb);
+    }
+  }
+
+  $stash->set(hex => \%hex);
+
+[% END %]
+
+[% INCLUDE form.html %]

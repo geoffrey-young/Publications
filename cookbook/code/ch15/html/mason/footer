@@ -1,0 +1,5 @@
+  <hr>
+  This page was generated on <% scalar localtime %>
+  </body>
+</html>
+

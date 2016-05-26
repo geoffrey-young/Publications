@@ -1,0 +1,11 @@
+APACHE_SRC=../apache_1.3.19/src
+APACHE_PREFIX=/usr/local/apache
+EVERYTHING=1
+DO_HTTPD=1
+USE_APACI=1
+#PERL_TRACE=1
+#PERL_DEBUG=1
+APACI_ARGS=--enable-module=rewrite
+APACI_ARGS=--enable-module=info
+APACI_ARGS=--enable-module=expires
+APACI_ARGS=--disable-module=userdir

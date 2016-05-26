@@ -1,0 +1,3 @@
+<& header &>
+<% $m->call_next %>
+<& footer &>

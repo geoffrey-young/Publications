@@ -1,0 +1,20 @@
+[-
+  @colors = qw(Red Green Blue);
+  %defaults = ( BGCOLOR => 'FFFFFF',
+                TEXT    => '000000',
+                LINK    => '0000FF',
+                ALINK   => 'FF0000',
+                VLINK   => 'AA0000',
+               );
+
+  @types = keys %defaults;
+
+  if ( $fdat{submit} ) {
+     Execute({inputfile => 'rgb2hex.html', 
+              param => [\@types, \@colors, \%defaults]});
+  }
+  else {
+     Execute({inputfile => 'form.html', 
+              param => [\@types, \@colors, \%defaults]});
+  }
+-]
