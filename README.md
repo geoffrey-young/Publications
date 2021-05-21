@@ -7,7 +7,7 @@ Enjoy!
 
 ## [mod_perl Developer's Cookbook](cookbook/)
 
-I was lead author on an authortitative and well received work on [mod_perl](http://perl.apache.org/), the software that embeds the [Perl](https://www.perl.org) interpreter inside the [Apache httpd webserver](http://httpd.apache.org).  mod_perl happens to be the software that powers [Ticketmaster](http://www.ticketmaster.com), which is how I ended up working there.
+I was lead author on an authortitative and well received work on [mod_perl](http://perl.apache.org/), the software that embeds the [Perl](https://www.perl.org) interpreter inside the [Apache httpd webserver](http://httpd.apache.org).  mod_perl happens to be the software that powers [Ticketmaster](http://www.ticketmaster.com), which is how I ended up working there from 2002 to 2010.
 
 [mod_perl Developer's Cookbook](http://modperlcookbook.org/) was published by [Sams Publishing](http://www.informit.com/sams) in early 2002.
 
